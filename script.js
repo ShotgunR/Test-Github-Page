@@ -4,12 +4,4 @@ const t = urlParams.get('t');
 console.log(t);
 
 
-let p = d3.select('body')
-  .selectAll('div')
-  .data([3, 4]);
-
-const pEnter = p.enter()
-  .append('div')
-  .text(d => d);
-  
-p.text(d => d);
+d3.selectAll("p").append("div");
