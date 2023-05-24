@@ -69,7 +69,7 @@ window.onload = function () {
   // ---------------------------------------------------
   const dots = layers.get("dot").selectAll("circle.dot").data(nodes);
 
-  //This is a layover from D3 that is used to remove items in the .data([]) function above. 
+  //This is a layover from D3 that is used to remove items in the .data([]) function above.
   //http://using-d3js.com/02_01_binding_data.html#h_inzMid6Mr3
   dots.exit().remove();
   //adding circles to the line at the nodes idealPos
@@ -96,5 +96,25 @@ window.onload = function () {
     .style("stroke-width", 2)
     .style("opacity", 0.6)
     .style("fill", "none")
-    .attr("d", node => renderer.generatePath(node));
+    .attr("d", (node) => renderer.generatePath(node));
+
+  // ---------------------------------------------------
+  // Draw label rectangles
+  // ---------------------------------------------------
+
+  var rect = layers.get("label").selectAll("rect.flag").data(nodes);
+
+  rect.exit().remove();
+
+  rect
+    .enter()
+    .append("rect")
+    .classed("flag", true)
+    .attr("height", chart.options().nodeHeight)
+    .on("click", (node) => console.log(node))
+    .style("opacity", (node) => (node.isStub() ? 0.6 : 1))
+    .style("fill", "Black")
+    .attr("x", (node) => node.x - node.width / 2)
+    .attr("y", (node) => node.y)
+    .attr("width", (node) => node.width);
 };
